@@ -5,10 +5,36 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <title>Jogo da Forca</title>
 </head>
 <body>
-    
+    <div id="container">
+        <main>
+            <div id="desenho-forca">
+                
+            </div>
+            <div id="palavra">
+                <input type="text" id="0" disabled value="">&nbsp;
+                <input type="text" id="1" disabled value="">&nbsp;
+                <input type="text" id="2" disabled value="">&nbsp;
+                <input type="text" id="3" disabled value="">&nbsp;
+                <input type="text" id="4" disabled value="">&nbsp;
+                <input type="text" id="4" disabled value="">&nbsp;
+                <input type="text" id="4" disabled value="">&nbsp;
+                <input type="text" id="4" disabled value="">&nbsp;
+                <p>Dica: ANIMAL</p>
+            </div>
+            <button class="botoes" onclick="iniciaJogo()">Iniciar o jogo</button>
+            <button class="botoes" onclick="adicionaPalavra()">Adicionar palavra</button>
+        </main>
+    </div>
+    <footer>
+        &copy; Todos os direitos reservados<br>
+        Desenvolvido por Renan Tameirão<br>
+        <a href="https://www.linkedin.com/in/renan-tameirao-539b5a236/" target="_blank"><i class="fa fa-github"></i></a>&nbsp;<a href="https://github.com/RenanDeveloper" target="_blank"><i class="fa fa-linkedin-square"></i></a>
+    </footer>
 </body>
 <script src="script.js"></script>
 </html>
