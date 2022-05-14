@@ -10,26 +10,10 @@
     <title>Jogo da Forca</title>
 </head>
 <body>
-    <div id="container">
-        <main>
-            <div id="desenho-forca">
-                
-            </div>
-            <div id="palavra">
-                <input type="text" id="0" disabled value="">&nbsp;
-                <input type="text" id="1" disabled value="">&nbsp;
-                <input type="text" id="2" disabled value="">&nbsp;
-                <input type="text" id="3" disabled value="">&nbsp;
-                <input type="text" id="4" disabled value="">&nbsp;
-                <input type="text" id="4" disabled value="">&nbsp;
-                <input type="text" id="4" disabled value="">&nbsp;
-                <input type="text" id="4" disabled value="">&nbsp;
-                <p>Dica: ANIMAL</p>
-            </div>
-            <button class="botoes" onclick="iniciaJogo()">Iniciar o jogo</button>
-            <button class="botoes" onclick="adicionaPalavra()">Adicionar palavra</button>
-        </main>
-    </div>
+    <main id="container">
+        <button class="botoes" onclick="iniciarJogo(listaPalavras)">Iniciar o jogo</button>
+        <button class="botoes" onclick="adicionaPalavra()">Adicionar palavra</button>
+    </main>
     <footer>
         &copy; Todos os direitos reservados<br>
         Desenvolvido por Renan Tameirão<br>
@@ -37,4 +21,5 @@
     </footer>
 </body>
 <script src="script.js"></script>
+<script src="palavras.js"></script>
 </html>
