@@ -60,8 +60,69 @@ function iniciarJogo(lista){
 
 function desenhaBoneco(){
     var tela = document.querySelector('canvas');
-    console.log(tela)
     var pincel = tela.getContext("2d");
 
-    
+    //forca
+    pincel.fillStyle = 'black';
+    pincel.beginPath();
+    pincel.moveTo(135,350);
+    pincel.lineTo(450,350);
+    pincel.stroke();
+
+    pincel.beginPath();
+    pincel.moveTo(180,350);
+    pincel.lineTo(180,5);
+    pincel.stroke();
+
+    pincel.beginPath();
+    pincel.moveTo(180,5);
+    pincel.lineTo(300,5);
+    pincel.stroke();
+
+    pincel.beginPath();
+    pincel.moveTo(300,50);
+    pincel.lineTo(300,5);
+    pincel.stroke();
+    //cabeça do boneco
+    pincel.beginPath();
+    pincel.arc(300, 100, 50, 0, 2*3.14);
+    pincel.stroke();
+    //corpo do boneco
+    pincel.beginPath();
+    pincel.moveTo(300,150);
+    pincel.lineTo(300,250);
+    pincel.stroke();
+    //braço a direita
+    pincel.beginPath();
+    pincel.moveTo(300,180);
+    pincel.lineTo(350,220);
+    pincel.stroke();
+    //braço a esquerda
+    pincel.beginPath();
+    pincel.moveTo(300,180);
+    pincel.lineTo(250,220);
+    pincel.stroke();
+    //perna a direita
+    pincel.beginPath();
+    pincel.moveTo(300,250);
+    pincel.lineTo(350,290);
+    pincel.stroke();
+    //perna a esquerda
+    pincel.beginPath();
+    pincel.moveTo(300,250);
+    pincel.lineTo(250,290);
+    pincel.stroke();
+
+    /* pincel.fillStyle = 'black';
+    pincel.beginPath();
+    pincel.moveTo(50,50);
+    pincel.lineTo(50,400);
+    pincel.lineTo(400,400);
+    pincel.fill();
+    pincel.fillStyle = 'white';
+    pincel.beginPath();
+    pincel.moveTo(100,175);
+    pincel.lineTo(100,350);
+    pincel.lineTo(275,350);
+    pincel.fill(); */
 }
