@@ -7,6 +7,12 @@ function desenhaTabuleiro(){
     forca.setAttribute('id','forca')
     tabuleiro.appendChild(forca);
 
+    var canvas = document.createElement("canvas");
+    canvas.setAttribute('id','canvas')
+    forca.appendChild(canvas);
+    canvas.setAttribute('width', '600px');
+    canvas.setAttribute('height', '400px');
+
 
     var palavra = document.createElement("div");
     palavra.setAttribute('id','palavra')
@@ -52,3 +58,10 @@ function iniciarJogo(lista){
     desenhaTracinhos(palavraSorteada);
 }
 
+function desenhaBoneco(){
+    var tela = document.querySelector('canvas');
+    console.log(tela)
+    var pincel = tela.getContext("2d");
+
+    
+}
