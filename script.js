@@ -1,3 +1,32 @@
+var listaPalavras = [
+    "CACHORRO",
+    "CAVALO",
+    "MACACO",
+    "GALINHA",
+    "PEIXE",
+    "ORNITORRINCO",
+    "ABACAXI",
+    "BANANA",
+    "GOIABA",
+    "MELANCIA",
+    "PERA"
+];
+var palavraSorteada;
+var jaFoiUsada = [];
+
+
+function iniciarJogo(lista){
+    someBotoes();
+    desenhaTabuleiro();
+    sorteiaPalavra(lista);
+    desenhaTracinhos(palavraSorteada);
+}
+function someBotoes(){
+    var botoes = document.querySelectorAll('.botoes');
+    botoes.forEach(element => {
+        element.style.display = "none";
+    });
+}
 function desenhaTabuleiro(){
     var tabuleiro = document.createElement("div");
     tabuleiro.setAttribute('id','tabuleiro')
@@ -13,51 +42,37 @@ function desenhaTabuleiro(){
     canvas.setAttribute('width', '600px');
     canvas.setAttribute('height', '400px');
 
-
     var palavra = document.createElement("div");
     palavra.setAttribute('id','palavra')
     tabuleiro.appendChild(palavra);
+
+    var letrasErradas = document.createElement("div");
+    letrasErradas.setAttribute('id','letrasErradas')
+    tabuleiro.appendChild(letrasErradas);
     
     var dica = document.createElement("div");
     dica.setAttribute('id','dica')
     tabuleiro.appendChild(dica);
 
 }
-
-function someBotoes(){
-    var botoes = document.querySelectorAll('.botoes');
-    botoes.forEach(element => {
-        element.style.display = "none";
-    });
-}
-
 function inteiroAleatorio(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min)) + min;
 }
-
 function sorteiaPalavra(lista){
     var aleatorio = inteiroAleatorio(0, lista.length);
-    var palavraSorteada = lista[aleatorio];
-    return palavraSorteada;
+    palavraSorteada = lista[aleatorio];
 }
-
 function desenhaTracinhos(palavra){
     var minhaDiv = document.querySelector('#palavra')
     for (let i = 0; i < palavra.length; i++) {
         var novoTracinho = document.createElement("input");
         minhaDiv.appendChild(novoTracinho);
+        novoTracinho.setAttribute('id',i);
+        novoTracinho.setAttribute('disabled','disabled');
     }
 }
-
-function iniciarJogo(lista){
-    desenhaTabuleiro();
-    someBotoes();
-    var palavraSorteada = sorteiaPalavra(lista);
-    desenhaTracinhos(palavraSorteada);
-}
-
 function desenhaBoneco(){
     var tela = document.querySelector('canvas');
     var pincel = tela.getContext("2d");
@@ -112,17 +127,48 @@ function desenhaBoneco(){
     pincel.moveTo(300,250);
     pincel.lineTo(250,290);
     pincel.stroke();
-
-    /* pincel.fillStyle = 'black';
-    pincel.beginPath();
-    pincel.moveTo(50,50);
-    pincel.lineTo(50,400);
-    pincel.lineTo(400,400);
-    pincel.fill();
-    pincel.fillStyle = 'white';
-    pincel.beginPath();
-    pincel.moveTo(100,175);
-    pincel.lineTo(100,350);
-    pincel.lineTo(275,350);
-    pincel.fill(); */
+}
+function seLetra(tecla){
+    //cria o alfabete de letras permitidas
+    var alfabeto = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+    //converte a tecla digitada para maiúscula para comparar com o alfabeto
+    tecla = tecla.toUpperCase();
+    //verifica se a tecla digitada é uma letra do alfabeto permitido
+    for(let i=0; i<alfabeto.length; i++){
+        if(tecla == alfabeto[i]){
+            return tecla;
+        }
+    }
+    return false;
+}
+function seLetraUsada(letra){
+    //verifica se a letra já foi usada
+    for(let i=0;i<jaFoiUsada.length;i++){
+        if(letra == jaFoiUsada[i]){
+            return true;
+        }
+    }
+    jaFoiUsada.push(letra);
+    return false;
+}
+function seLetraPalavra(letra){
+    //escreve a letra no(s) tracinho(s) correto(s)
+    for(let i=0;i<palavraSorteada.length;i++){
+        if(letra == palavraSorteada[i]){
+            var apresenta = document.getElementById(i);
+            apresenta.value = letra;
+        }
+    }
+}
+function novaTecla(tecla){
+    var letra = seLetra(tecla);
+    if(letra){
+        if(!seLetraUsada(letra)){
+           if(!seLetraPalavra(letra)){
+               letrasErradas = document.querySelector("#letrasErradas");
+               letrasErradas.textContent = letrasErradas.textContent+' '+letra;
+           }
+        }
+    }
+    
 }

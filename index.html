@@ -9,7 +9,7 @@
 
     <title>Jogo da Forca</title>
 </head>
-<body>
+<body onkeyup="novaTecla(event.key)">
     <main id="container">
         <button class="botoes" onclick="iniciarJogo(listaPalavras)">Iniciar o jogo</button>
         <button class="botoes" onclick="adicionaPalavra()">Adicionar palavra</button>
@@ -21,5 +21,4 @@
     </footer>
 </body>
 <script src="script.js"></script>
-<script src="palavras.js"></script>
 </html>
