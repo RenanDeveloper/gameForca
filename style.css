@@ -4,6 +4,9 @@
     margin-right: 0;
     margin-left: 0;
 }
+body{
+    background-color: #A7BFE8;
+}
 #container{
     width: 75%;
     margin: 0 auto;
@@ -19,6 +22,8 @@
     background: linear-gradient(to right, #A7BFE8, #6190E8); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     margin-bottom: 30px;
     padding: 15px;
+    border-radius: 50px;
+    box-shadow: 1px 10px 30px 10px black;
 }
 input{
     background-color: transparent;
@@ -31,6 +36,28 @@ input{
     margin-bottom: 50px;
     margin-right: 10px;
     
+}
+.controles{
+    margin: 200px auto;
+}
+.botoes{
+    padding: 20px;
+    background: #6190E8;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #A7BFE8, #6190E8);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #A7BFE8, #6190E8); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color: white;
+    border-radius: 10px;
+    font-weight: bold;
+    border: none;
+    margin: 20px;
+    transition: 0.5s;
+}
+.botoes:hover{
+    background-color: white;
+    color: black;
+    box-shadow: 1px 1px #6190E8,2px 2px #5285e6,3px 3px #447de7,4px 4px #3372e7,5px 5px #2065e6,6px 6px #447de7;
+    transition: 1s;
+
 }
 footer{
     clear: both;

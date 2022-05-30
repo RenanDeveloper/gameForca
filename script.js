@@ -23,6 +23,8 @@ function iniciarJogo(lista){
     sorteiaPalavra(lista);
     desenhaTracinhos(palavraSorteada);
     desenhaForca();
+    var controles = document.querySelector('.controles');
+    controles.style.display = "none";
 }
 function someBotoes(){
     var botoes = document.querySelectorAll('.botoes');
