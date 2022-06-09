@@ -15,9 +15,11 @@ var palavraSorteada;
 var jaFoiUsada = [];
 var chances = 0;
 var ganhou = 0;
+var habilitarTeclas = false;
 
 
 function iniciarJogo(lista){
+    habilitarTeclas = true;
     someBotoes();
     desenhaTabuleiro();
     sorteiaPalavra(lista);
@@ -34,29 +36,29 @@ function someBotoes(){
 }
 function desenhaTabuleiro(){
     var tabuleiro = document.createElement("div");
-    tabuleiro.setAttribute('id','tabuleiro')
+    tabuleiro.setAttribute('id','tabuleiro');
     container.appendChild(tabuleiro);
 
     var forca = document.createElement("div");
-    forca.setAttribute('id','forca')
+    forca.setAttribute('id','forca');
     tabuleiro.appendChild(forca);
 
     var canvas = document.createElement("canvas");
-    canvas.setAttribute('id','canvas')
+    canvas.setAttribute('id','canvas');
     forca.appendChild(canvas);
     canvas.setAttribute('width', '600px');
     canvas.setAttribute('height', '400px');
 
     var palavra = document.createElement("div");
-    palavra.setAttribute('id','palavra')
+    palavra.setAttribute('id','palavra');
     tabuleiro.appendChild(palavra);
 
     var letrasErradas = document.createElement("div");
-    letrasErradas.setAttribute('id','letrasErradas')
+    letrasErradas.setAttribute('id','letrasErradas');
     tabuleiro.appendChild(letrasErradas);
     
     var dica = document.createElement("div");
-    dica.setAttribute('id','dica')
+    dica.setAttribute('id','dica');
     tabuleiro.appendChild(dica);
 
 }
@@ -75,6 +77,7 @@ function desenhaTracinhos(palavra){
         var novoTracinho = document.createElement("input");
         minhaDiv.appendChild(novoTracinho);
         novoTracinho.setAttribute('id',i);
+        novoTracinho.setAttribute('class','letrinha');
         novoTracinho.setAttribute('disabled','disabled');
     }
 }
@@ -208,23 +211,69 @@ function seLetraPalavra(letra){
     }
 }
 function novaTecla(tecla){
-    if(chances >= 6 || ganhou >= palavraSorteada.length){
-        return;
-    }
-    var letra = seLetra(tecla);
-    if(letra){
-        if(!seLetraUsada(letra)){
-           if(!seLetraPalavra(letra)){
-               letrasErradas = document.querySelector("#letrasErradas");
-               letrasErradas.textContent = letrasErradas.textContent+' '+letra;
-           }
+    if(habilitarTeclas){
+        if(chances >= 6 || ganhou >= palavraSorteada.length){
+            return;
         }
-        if(chances >= 6){
-            alert("Não foi dessa vez. Você vai conseguir na próxima!")
-        }else if(ganhou >= palavraSorteada.length){
-            alert("Parabéns, você foi incrível!")
+        var letra = seLetra(tecla);
+        if(letra){
+            if(!seLetraUsada(letra)){
+            if(!seLetraPalavra(letra)){
+                letrasErradas = document.querySelector("#letrasErradas");
+                letrasErradas.textContent = letrasErradas.textContent+' '+letra;
+            }
+            }
+            if(chances >= 6){
+                alert("Não foi dessa vez. Você vai conseguir na próxima!")
+            }else if(ganhou >= palavraSorteada.length){
+                alert("Parabéns, você foi incrível!")
 
+            }
         }
     }
+}
+function tocarAudio(){
+    if(typeof meuAudio !== 'undefined'){
+        meuAudio.pause();
+    }
+    meuAudio = new Audio('sounds/derrota01.mp3');
+
+    meuAudio.setAttribute('autoplay','autoplay');
+}
+function adicionaPalavra(){
+    var controles = document.querySelector('.controles');
+    var temp = document.createElement("div");
+    var entrada = document.createElement("input");
+    var salvar = document.createElement("button");
+
+    temp.setAttribute('id','temp');
+    entrada.setAttribute('id','entrada');
+    entrada.setAttribute('placeholder','Insira a nova palavra');
+    salvar.setAttribute('id','salvar')
+
+    controles.appendChild(temp);
+    temp.appendChild(entrada);
+    temp.appendChild(salvar);
+
     
+    salvar.textContent = "Salvar";
+    salvar.setAttribute('onClick','inserir(entrada.value)');
+
+    var botoes = document.querySelectorAll('.botoes');
+    botoes.forEach(element => {
+        element.style.display = "none";
+    });
+}
+function inserir(novaPalavra){
+    var palavra = novaPalavra.toUpperCase();
+    listaPalavras.push(palavra);
+    
+    var botoes = document.querySelectorAll('.botoes');
+    botoes.forEach(element => {
+        element.style.display = "block";
+    });
+
+    var temp = document.querySelector('#temp');
+    temp.remove();
+
 }
