@@ -1,15 +1,16 @@
 var listaPalavras = [
-    "CACHORRO",
-    "CAVALO",
-    "MACACO",
-    "GALINHA",
-    "PEIXE",
-    "ORNITORRINCO",
-    "ABACAXI",
-    "BANANA",
-    "GOIABA",
-    "MELANCIA",
-    "PERA"
+    {
+        nome: "CACHORRO",
+        dica: "ANIMAL"
+    },
+    {
+        nome: "PERA",
+        dica: "FRUTA"
+    },
+    {
+        nome: "LAPIS",
+        dica: "OBJETO"
+    },
 ];
 var palavraSorteada;
 var jaFoiUsada = [];
@@ -47,7 +48,7 @@ function desenhaTabuleiro(){
     canvas.setAttribute('id','canvas');
     forca.appendChild(canvas);
     canvas.setAttribute('width', '600px');
-    canvas.setAttribute('height', '400px');
+    canvas.setAttribute('height', '360px');
 
     var palavra = document.createElement("div");
     palavra.setAttribute('id','palavra');
@@ -56,11 +57,15 @@ function desenhaTabuleiro(){
     var letrasErradas = document.createElement("div");
     letrasErradas.setAttribute('id','letrasErradas');
     tabuleiro.appendChild(letrasErradas);
+    letrasErradas.textContent = "Letras Usadas: "
     
     var dica = document.createElement("div");
     dica.setAttribute('id','dica');
     tabuleiro.appendChild(dica);
-
+    var dicaPalavra = document.createElement("p");
+    dicaPalavra.setAttribute('id','dicaPalavra');
+    dica.appendChild(dicaPalavra);
+    
 }
 function inteiroAleatorio(min, max) {
     min = Math.ceil(min);
@@ -69,7 +74,10 @@ function inteiroAleatorio(min, max) {
 }
 function sorteiaPalavra(lista){
     var aleatorio = inteiroAleatorio(0, lista.length);
-    palavraSorteada = lista[aleatorio];
+    palavraSorteada = lista[aleatorio].nome;
+    
+    var dica = document.querySelector('#dicaPalavra');
+    dica.textContent = "Dica: "+listaPalavras[aleatorio].dica;
 }
 function desenhaTracinhos(palavra){
     var minhaDiv = document.querySelector('#palavra')
@@ -224,10 +232,21 @@ function novaTecla(tecla){
             }
             }
             if(chances >= 6){
-                alert("Não foi dessa vez. Você vai conseguir na próxima!")
-            }else if(ganhou >= palavraSorteada.length){
-                alert("Parabéns, você foi incrível!")
+                var derrota = document.createElement('div');
+                var tabuleiro = document.querySelector('#tabuleiro');
 
+                derrota.setAttribute('id', 'derrota');
+                tabuleiro.appendChild(derrota);
+
+                derrota.textContent = "Não foi dessa vez! Na próxima se sairá melhor.";
+            }else if(ganhou >= palavraSorteada.length){
+                var vitoria = document.createElement('div');
+                var tabuleiro = document.querySelector('#tabuleiro');
+
+                vitoria.setAttribute('id', 'vitoria');
+                tabuleiro.appendChild(vitoria);
+
+                vitoria.innerHTML = "Parabéns, você foi incrível!<br>A Palavra era: "+palavraSorteada;
             }
         }
     }
@@ -242,38 +261,54 @@ function tocarAudio(){
 }
 function adicionaPalavra(){
     var controles = document.querySelector('.controles');
-    var temp = document.createElement("div");
-    var entrada = document.createElement("input");
+    var novaEntrada = document.createElement("div");
+    var novaPalavra = document.createElement("input");
+    var novaDica = document.createElement("input");
     var salvar = document.createElement("button");
 
-    temp.setAttribute('id','temp');
-    entrada.setAttribute('id','entrada');
-    entrada.setAttribute('placeholder','Insira a nova palavra');
+    novaEntrada.setAttribute('id','novaEntrada');
+    novaPalavra.setAttribute('id','novaPalavra');
+    novaDica.setAttribute('id','novaDica');
+    novaPalavra.setAttribute('placeholder','Insira a nova palavra');
+    novaDica.setAttribute('placeholder','Dica para a palavra');
     salvar.setAttribute('id','salvar')
 
-    controles.appendChild(temp);
-    temp.appendChild(entrada);
-    temp.appendChild(salvar);
+    controles.appendChild(novaEntrada);
+    novaEntrada.appendChild(novaPalavra);
+    novaEntrada.appendChild(novaDica);
+    novaEntrada.appendChild(salvar);
 
     
     salvar.textContent = "Salvar";
-    salvar.setAttribute('onClick','inserir(entrada.value)');
+    salvar.setAttribute('onClick','inserir(novaPalavra.value, novaDica.value)');
 
     var botoes = document.querySelectorAll('.botoes');
     botoes.forEach(element => {
         element.style.display = "none";
     });
 }
-function inserir(novaPalavra){
+function inserir(novaPalavra, novaDica){
     var palavra = novaPalavra.toUpperCase();
-    listaPalavras.push(palavra);
+    var dica = novaDica.toUpperCase();
+    var obj = new Object;
+    
+    obj = {
+        nome: palavra,
+        dica: dica
+    }
+
+    listaPalavras.push(obj);
     
     var botoes = document.querySelectorAll('.botoes');
     botoes.forEach(element => {
         element.style.display = "block";
     });
 
-    var temp = document.querySelector('#temp');
-    temp.remove();
+    var novaEntrada = document.querySelector('#novaEntrada');
+    novaEntrada.remove();
+
+}
+
+function reiniciar(){
 
 }

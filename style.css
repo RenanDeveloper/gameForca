@@ -6,13 +6,13 @@
 }
 body{
     background-color: #A7BFE8;
+    height: 100vh;
 }
 #container{
     width: 75%;
     margin: 0 auto;
     text-align: center;
     margin-bottom: 30px;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 #tabuleiro{
     max-width: 1200px;
@@ -59,14 +59,15 @@ input.letrinha{
     color: black;
     box-shadow: -1px -1px #6190E8,-2px -2px #5285e6,-3px -3px #447de7,-4px -4px #3372e7,-5px -5px #2065e6,-6px -6px #447de7,1px 1px 10px rgba(0 , 0, 0, 0.8);
     transition: 1s;
-
 }
 
-#entrada{
+#novaPalavra, #novaDica{
     background-color: rgba(0,0,0,0.1);
     padding: 10px;
     border: none;
     border-radius: 5px;
+    display: block;
+    margin: 10px;
 }
 #salvar{
     padding: 10px;
@@ -86,9 +87,34 @@ input.letrinha{
     box-shadow: -1px -1px #6190E8,-2px -2px #5285e6,-3px -3px #447de7,-4px -4px #3372e7,-5px -5px #2065e6,-6px -6px #447de7,1px 1px 10px rgba(0 , 0, 0, 0.8);
     transition: 1s;
 }
+#vitoria{
+    position: absolute;
+    background-color: rgba(0,128,0,.7);
+    color: white;
+    width: 400px;
+    height: 200px;
+    top: 50%;
+    left: 50%;
+    margin-top: -140px;
+    margin-left: -220px;
+    border-radius: 30px;
+    padding: 20px;
+}
+#derrota{
+    position: absolute;
+    background-color: rgba(255,0,0,.7);
+    color: white;
+    width: 400px;
+    height: 200px;
+    top: 50%;
+    left: 50%;
+    margin-top: -140px;
+    margin-left: -220px;
+    border-radius: 30px;
+    padding: 20px;
+}
 footer{
-    clear: both;
-    padding: 50px;
+    padding: 20px;
     text-align: center;
     background-color: black;
     font-family: 'Inter', sans-serif;
