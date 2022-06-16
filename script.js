@@ -4,19 +4,120 @@ var listaPalavras = [
         dica: "ANIMAL"
     },
     {
+        nome: "CAVALO",
+        dica: "ANIMAL"
+    },
+    {
+        nome: "GIRAFA",
+        dica: "ANIMAL"
+    },
+    {
+        nome: "PAPAGAIO",
+        dica: "ANIMAL"
+    },
+    {
+        nome: "ORNITORRINCO",
+        dica: "ANIMAL"
+    },
+    {
+        nome: "AVESTRUZ",
+        dica: "ANIMAL"
+    },
+    {
         nome: "PERA",
         dica: "FRUTA"
     },
     {
-        nome: "LAPIS",
-        dica: "OBJETO"
+        nome: "GOIABA",
+        dica: "FRUTA"
     },
+    {
+        nome: "GRAVIOLA",
+        dica: "FRUTA"
+    },
+    {
+        nome: "JABOTICABA",
+        dica: "FRUTA"
+    },
+    {
+        nome: "MORANGO",
+        dica: "FRUTA"
+    },
+    {
+        nome: "CADEIRA",
+        dica: "MOVEL"
+    },
+    {
+        nome: "POLTRONA",
+        dica: "MOVEL"
+    },
+    {
+        nome: "GUATEMALA",
+        dica: "PAIS"
+    },
+    {
+        nome: "HOLANDA",
+        dica: "PAIS"
+    },
+    {
+        nome: "DINAMARCA",
+        dica: "PAIS"
+    },
+    {
+        nome: "JAMAICA",
+        dica: "PAIS"
+    },
+    {
+        nome: "SOTAQUE",
+        dica: "LIGUAGEM"
+    },
+    {
+        nome: "TORNOZELO",
+        dica: "PARTE DO CORPO"
+    },
+    {
+        nome: "COSTELA",
+        dica: "PARTE DO CORPO"
+    },
+    {
+        nome: "COTOVELO",
+        dica: "PARTE DO CORPO"
+    },
+    {
+        nome: "GUITARRA",
+        dica: "INSTRUMENTO"
+    },
+    {
+        nome: "CLARINETE",
+        dica: "INSTRUMENTO"
+    },
+    {
+        nome: "VIOLINO",
+        dica: "INSTRUMENTO"
+    },
+    {
+        nome: "COMPUTADOR",
+        dica: "TECNOLOGIA"
+    },
+    {
+        nome: "SMARTPHONE",
+        dica: "TECNOLOGIA"
+    },
+    {
+        nome: "CELULAR",
+        dica: "TECNOLOGIA"
+    },
+    {
+        nome: "JOGOS",
+        dica: "DIVERTIDOS"
+    }    
 ];
 var palavraSorteada;
 var jaFoiUsada = [];
 var chances = 0;
 var ganhou = 0;
 var habilitarTeclas = false;
+var recorde = 0;
 
 
 function iniciarJogo(lista){
@@ -65,6 +166,12 @@ function desenhaTabuleiro(){
     var dicaPalavra = document.createElement("p");
     dicaPalavra.setAttribute('id','dicaPalavra');
     dica.appendChild(dicaPalavra);
+
+    var recordeAtual = document.createElement("div");
+    recordeAtual.setAttribute('id','recordeAtual');
+    tabuleiro.appendChild(recordeAtual);
+   
+    recordeAtual.textContent = "Recorde: "+recorde;
     
 }
 function inteiroAleatorio(min, max) {
@@ -239,6 +346,23 @@ function novaTecla(tecla){
                 tabuleiro.appendChild(derrota);
 
                 derrota.textContent = "Não foi dessa vez! Na próxima se sairá melhor.";
+
+                recorde = 0;
+
+                var reinicio = document.createElement('div');
+                reinicio.setAttribute('id', 'reinicio');
+                derrota.appendChild(reinicio);
+
+                var botao = document.createElement('button');
+                botao.setAttribute('id', 'botao');
+                reinicio.appendChild(botao);
+
+                botao.setAttribute('id', 'reiniciar-btn-lost');
+                botao.setAttribute('class', 'botoes');
+
+                botao.textContent = "Jogar novamente"
+                botao.setAttribute('onClick', 'reiniciar()');
+
             }else if(ganhou >= palavraSorteada.length){
                 var vitoria = document.createElement('div');
                 var tabuleiro = document.querySelector('#tabuleiro');
@@ -247,6 +371,23 @@ function novaTecla(tecla){
                 tabuleiro.appendChild(vitoria);
 
                 vitoria.innerHTML = "Parabéns, você foi incrível!<br>A Palavra era: "+palavraSorteada;
+                
+                recorde += 1;
+
+                var reinicio = document.createElement('div');
+                reinicio.setAttribute('id', 'reinicio');
+                vitoria.appendChild(reinicio);
+
+                var botao = document.createElement('button');
+                botao.setAttribute('id', 'botao');
+                reinicio.appendChild(botao);
+
+                botao.setAttribute('id', 'reiniciar-btn-win');
+                botao.setAttribute('class', 'botoes');
+
+                botao.textContent = "Jogar novamente"
+                botao.setAttribute('onClick', 'reiniciar()');
+            
             }
         }
     }
@@ -310,5 +451,13 @@ function inserir(novaPalavra, novaDica){
 }
 
 function reiniciar(){
+    finalizar = document.querySelector('#tabuleiro');
+    finalizar.remove();
 
+    palavraSorteada = '';
+    jaFoiUsada = [];
+    chances = 0;
+    ganhou = 0;
+
+    iniciarJogo(listaPalavras);
 }
