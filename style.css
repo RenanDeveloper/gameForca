@@ -87,10 +87,16 @@ input.letrinha{
     box-shadow: -1px -1px #6190E8,-2px -2px #5285e6,-3px -3px #447de7,-4px -4px #3372e7,-5px -5px #2065e6,-6px -6px #447de7,1px 1px 10px rgba(0 , 0, 0, 0.8);
     transition: 1s;
 }
-#recordeAtual{
+#ponto{
     position: absolute;
     top: 10%;
-    right: 20%;
+    right: 16%;
+    transition: 2s;
+}
+#recordeAtual{
+    position: absolute;
+    top: 14%;
+    right: 16%;
     transition: 2s;
 }
 #vitoria{

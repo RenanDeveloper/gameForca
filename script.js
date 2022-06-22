@@ -112,11 +112,127 @@ var listaPalavras = [
         dica: "DIVERTIDOS"
     }    
 ];
+var listaPalavrasCopia = [
+    {
+        nome: "CACHORRO",
+        dica: "ANIMAL"
+    },
+    {
+        nome: "CAVALO",
+        dica: "ANIMAL"
+    },
+    {
+        nome: "GIRAFA",
+        dica: "ANIMAL"
+    },
+    {
+        nome: "PAPAGAIO",
+        dica: "ANIMAL"
+    },
+    {
+        nome: "ORNITORRINCO",
+        dica: "ANIMAL"
+    },
+    {
+        nome: "AVESTRUZ",
+        dica: "ANIMAL"
+    },
+    {
+        nome: "PERA",
+        dica: "FRUTA"
+    },
+    {
+        nome: "GOIABA",
+        dica: "FRUTA"
+    },
+    {
+        nome: "GRAVIOLA",
+        dica: "FRUTA"
+    },
+    {
+        nome: "JABOTICABA",
+        dica: "FRUTA"
+    },
+    {
+        nome: "MORANGO",
+        dica: "FRUTA"
+    },
+    {
+        nome: "CADEIRA",
+        dica: "MOVEL"
+    },
+    {
+        nome: "POLTRONA",
+        dica: "MOVEL"
+    },
+    {
+        nome: "GUATEMALA",
+        dica: "PAIS"
+    },
+    {
+        nome: "HOLANDA",
+        dica: "PAIS"
+    },
+    {
+        nome: "DINAMARCA",
+        dica: "PAIS"
+    },
+    {
+        nome: "JAMAICA",
+        dica: "PAIS"
+    },
+    {
+        nome: "SOTAQUE",
+        dica: "LIGUAGEM"
+    },
+    {
+        nome: "TORNOZELO",
+        dica: "PARTE DO CORPO"
+    },
+    {
+        nome: "COSTELA",
+        dica: "PARTE DO CORPO"
+    },
+    {
+        nome: "COTOVELO",
+        dica: "PARTE DO CORPO"
+    },
+    {
+        nome: "GUITARRA",
+        dica: "INSTRUMENTO"
+    },
+    {
+        nome: "CLARINETE",
+        dica: "INSTRUMENTO"
+    },
+    {
+        nome: "VIOLINO",
+        dica: "INSTRUMENTO"
+    },
+    {
+        nome: "COMPUTADOR",
+        dica: "TECNOLOGIA"
+    },
+    {
+        nome: "SMARTPHONE",
+        dica: "TECNOLOGIA"
+    },
+    {
+        nome: "CELULAR",
+        dica: "TECNOLOGIA"
+    },
+    {
+        nome: "JOGOS",
+        dica: "DIVERTIDOS"
+    }    
+];
 var palavraSorteada;
+var IdPalavraSorteada;
 var jaFoiUsada = [];
 var chances = 0;
 var ganhou = 0;
 var habilitarTeclas = false;
+var pontoAtual = 0;
 var recorde = 0;
 
 
@@ -167,6 +283,12 @@ function desenhaTabuleiro(){
     dicaPalavra.setAttribute('id','dicaPalavra');
     dica.appendChild(dicaPalavra);
 
+    var ponto = document.createElement("div");
+    ponto.setAttribute('id','ponto');
+    tabuleiro.appendChild(ponto);
+   
+    ponto.textContent = "Pontos: "+pontoAtual;
+
     var recordeAtual = document.createElement("div");
     recordeAtual.setAttribute('id','recordeAtual');
     tabuleiro.appendChild(recordeAtual);
@@ -180,11 +302,11 @@ function inteiroAleatorio(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
 }
 function sorteiaPalavra(lista){
-    var aleatorio = inteiroAleatorio(0, lista.length);
-    palavraSorteada = lista[aleatorio].nome;
+    IdPalavraSorteada = inteiroAleatorio(0, lista.length);
+    palavraSorteada = lista[IdPalavraSorteada].nome;
     
     var dica = document.querySelector('#dicaPalavra');
-    dica.textContent = "Dica: "+listaPalavras[aleatorio].dica;
+    dica.textContent = "Dica: "+listaPalavras[IdPalavraSorteada].dica;
 }
 function desenhaTracinhos(palavra){
     var minhaDiv = document.querySelector('#palavra')
@@ -345,9 +467,11 @@ function novaTecla(tecla){
                 derrota.setAttribute('id', 'derrota');
                 tabuleiro.appendChild(derrota);
 
-                derrota.textContent = "Não foi dessa vez! Na próxima se sairá melhor.";
+                derrota.textContent = "Não foi dessa vez! Tente mais uma.";
 
-                recorde = 0;
+                pontoAtual = 0;
+
+                listaPalavras = listaPalavrasCopia;
 
                 var reinicio = document.createElement('div');
                 reinicio.setAttribute('id', 'reinicio');
@@ -372,7 +496,12 @@ function novaTecla(tecla){
 
                 vitoria.innerHTML = "Parabéns, você foi incrível!<br>A Palavra era: "+palavraSorteada;
                 
-                recorde += 1;
+                pontoAtual += 1;
+                if(pontoAtual > recorde){
+                    recorde = pontoAtual;
+                }
+
+                listaPalavras.splice(IdPalavraSorteada,1);
 
                 var reinicio = document.createElement('div');
                 reinicio.setAttribute('id', 'reinicio');
@@ -439,6 +568,7 @@ function inserir(novaPalavra, novaDica){
     }
 
     listaPalavras.push(obj);
+    listaPalavrasCopia.push(obj);
     
     var botoes = document.querySelectorAll('.botoes');
     botoes.forEach(element => {
